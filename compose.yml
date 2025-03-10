@@ -15,7 +15,7 @@ services:
     command: npm start
     # labels:
     #   - "traefik.enable=true"
-    #   - "traefik.http.routers.app.rule=PathPrefix(`/`)" # Route /api requests to this service
+    #   - "traefik.http.routers.app.rule=PathPrefix(`/`)"
     #   - "traefik.http.routers.app.entrypoints=web"
     #   - "traefik.http.services.app.loadbalancer.server.port=4200"
     healthcheck:
@@ -37,8 +37,7 @@ services:
       - 8000:80
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.fastapi-auth.rule=PathPrefix(`/restapi`)" # Route /api requests to this service
-      # - "traefik.http.routers.fastapi-auth.rule=Host(`localhost`)"
+      - "traefik.http.routers.fastapi-auth.rule=PathPrefix(`/restapi`)" # Route /restapi requests to this service
       - "traefik.http.routers.fastapi-auth.entrypoints=web"
       - "traefik.http.services.fastapi-auth.loadbalancer.server.port=80"
       - "traefik.http.middlewares.fastapi-auth-stripprefix.stripprefix.prefixes=/restapi"
@@ -50,8 +49,6 @@ services:
       retries: 3
     networks:
       - bridge
-    # deploy:
-    #   replicas: 4
 
   traefik:
     image: traefik:v2.10
