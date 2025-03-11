@@ -1,1 +1,6 @@
-<p>home-component works!</p>
+<div>
+  @if (user$ | async; as user) {
+    <h1>Welcome {{ user.email }}</h1>
+  }
+  <p>home-component works!</p>
+</div>
