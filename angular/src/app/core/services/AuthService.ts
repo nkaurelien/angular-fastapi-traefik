@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, tap } from 'rxjs/operators';
 import { User } from '../models/User';
 import moment from 'moment';
 import { environment } from '../../../environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -12,14 +13,21 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-
-
   private loginUrl = `${environment.api_url}/login`;
 
   login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(this.loginUrl, { username: email, email, password }).pipe(
-      shareReplay(1) // Share the observable and replay the last emitted value to new subscribers
-    );
+    return this.http
+      .post<User>(this.loginUrl, { username: email, email, password })
+      .pipe(
+        shareReplay(1) // Share the observable and replay the last emitted value to new subscribers
+      ).pipe(
+        tap((httpResponse) => console.log({ httpResponse }))
+      ).pipe(
+        tap((httpResponse: any) => {
+          const decoded = jwtDecode(httpResponse.access_token);
+          console.log({ decoded });
+        })
+      );
   }
 
   private setSession(authResult: any) {
