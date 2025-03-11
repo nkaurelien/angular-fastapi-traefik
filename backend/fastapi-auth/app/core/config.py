@@ -23,7 +23,7 @@ async def logger_middleware(request: Request, call_next):
         if 400 <= response.status_code < 500:
             logger.warn("Client error")
         elif response.status_code >= 500:
-            logger.error("Server error")
+            logger.error("Server error" + response.body)
         else:
             logger.info("OK")
 

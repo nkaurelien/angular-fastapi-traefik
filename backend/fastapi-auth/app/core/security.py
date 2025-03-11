@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class Settings(BaseModel):
-    authjwt_secret_key: str = "secret"
+    authjwt_secret_key: str = "secret15215GUYSDGZ7623RTY"
 
 
 @AuthJWT.load_config

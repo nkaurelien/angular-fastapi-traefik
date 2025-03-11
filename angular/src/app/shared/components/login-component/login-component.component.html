@@ -1,17 +1,24 @@
-<form [formGroup]="form">
-    <fieldset>
-        <legend>Login</legend>
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input id="email" class="form-control" formControlName="email">
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input id="password" class="form-control" formControlName="password" type="password">
-        </div>
-    </fieldset>
-    <div class="form-buttons">
-        <button class="btn btn-primary" (click)="login()">Login</button>
+<div class="login-form-flex">
+  <form class="form flex flex-center" [formGroup]="loginForm">
+    <h3>Login</h3>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" matInput formControlName="email" />
+      @if (loginForm.get('email')?.hasError('required')) {
+      <mat-error>Email is required</mat-error>
+      } @if (loginForm.get('email')?.hasError('email')) {
+      <mat-error>Invalid email</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" />
+      @if (loginForm.get('password')?.hasError('required')) {
+      <mat-error>Password is required</mat-error>
+      }
+    </mat-form-field>
+    <div class="button-flex-container">
+      <button mat-stroked-button (click)="login()" [disabled]="loginForm.invalid">LOGIN</button>
     </div>
-</form>
-
+  </form>
+</div>

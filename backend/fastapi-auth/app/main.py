@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import health, auth, user, home
 from app.core.config import logger_middleware
 
-app = FastAPI()
+app = FastAPI(openapi_url="/restapi/v1/openapi.json")
 
 origins = [
     "http://localhost",
@@ -13,8 +13,8 @@ origins = [
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    # allow_origins=["*"],  # Allows all origins. In production, specify the allowed origins.
+    # allow_origins=origins,
+    allow_origins=["*"],  # Allows all origins. In production, specify the allowed origins.
     allow_credentials=True,
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
