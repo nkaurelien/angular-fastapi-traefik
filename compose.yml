@@ -3,7 +3,7 @@ services:
   app:
     container_name: "angular-app"
     build:
-      context: angular
+      context: angular-material
       dockerfile: .docker/Dockerfile
     ports:
       - "4201:4200"
